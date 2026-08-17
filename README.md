@@ -16,9 +16,9 @@ PathSignal V1 establishes a working career-intelligence workflow across four cor
 | Layer                      | V1 Capabilities                                                                                                                        |
 | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | **Planning**               | Profile & preference modeling · Target career path generation · Search query & search plan generation                                  |
-| **Discovery & Monitoring** | Brave Search · RSS feeds · Selected websites · Information-need & source-discovery workflow · Monitoring runtime                       |
-| **Intelligence**           | LLM-assisted filtering · `CareerSignal` normalization · Hybrid Priority Assessment · Deterministic scoring · Interpretation & briefing |
-| **State & Validation**     | SQLite system memory · Pipeline & provenance tracking · Source-item, filter-decision & `CareerSignal` persistence                      |
+| **Discovery & Monitoring** | Brave Search API · RSS feeds · Selected websites · Information-need & source-discovery workflow · Source evaluation & acquisition resolution ·  Monitoring runtime                       |
+| **Intelligence**           | LLM-assisted filtering · `CareerSignal` normalization · Semantic priority assessment · Deterministic hybrid scoring & routing · Interpretation & briefing |
+| **State & Validation**     | SQLite system memory · Canonical identity & deduplication · Pipeline & provenance tracking · Source-item, filter-decision & `CareerSignal` persistence · Contract & regression validation                      |
 
 
 V1 deliberately focuses on establishing a stable, testable information workflow before introducing autonomous agent orchestration.
@@ -28,7 +28,8 @@ V1 deliberately focuses on establishing a stable, testable information workflow 
 
 PathSignal separates **how information is acquired** from **what that information means to the user**.
 
-The first split creates two complementary acquisition strategies. Both automated acquisition and optional human input converge into a shared signal pipeline. Once information is transformed into a `CareerSignal`, the second split routes it according to its semantic role: **opportunity** or **career intelligence**.
+The first split creates two complementary automated acquisition strategies: **active opportunity discovery** and **continuous source monitoring**. Their outputs, together with optionally supplied human input, converge at the shared `SourceItem` layer before entering the same downstream signal pipeline. Once information is transformed into a `CareerSignal`, the second split routes it according to its semantic role: **opportunity** or **career intelligence**.
+
 
 ```mermaid
 %%{init: { "flowchart": { "curve": "linear", "nodeSpacing": 35, "rankSpacing": 45 } } }%%
@@ -124,38 +125,22 @@ flowchart TB
     CS -.-> DB
 ```
 
-> **The first split represents how information is acquired.
-> The second represents what that information means to the user.**
+> **The first split represents how information is acquired. The second represents what that information means to the user.**
 
-### Line A — Active Opportunity Discovery
+### V1 Boundary Notes
 
-Uses target career paths and executable search plans to broadly discover new job opportunities.
+Optional human input enters at the shared `SourceItem` boundary, so manually discovered information does not bypass the same downstream filtering and assessment process.
 
-### Line B — Continuous Source Monitoring
-
-Maintains selected high-value sources for repeated monitoring across runs. In V1, monitoring is **run-based rather than autonomously scheduled**, while persistent state allows PathSignal to remember what has already been discovered and processed.
-
-### Human-in-the-loop
-
-Useful information does not have to originate from automated acquisition. Manually discovered items can enter the shared `SourceItem` pipeline and pass through the same filtering and assessment process.
-
-Both acquisition paths converge into the same downstream signal contract. Once information becomes a `CareerSignal`, it is evaluated by **what it means to the user** — either an actionable **Opportunity** or broader **Career Intelligence**.
+Continuous Source Monitoring in V1 is **run-based rather than autonomously scheduled**. SQLite preserves state across runs; the dotted connections in the diagram are representative rather than exhaustive.
 
 ---
 
-### Persistent System Memory
-
-SQLite provides persistent state across runs rather than serving only as a final output store.
-
-The simplified diagram shows only representative connections to system memory. In the full V1 implementation, persistent state spans planning, acquisition history, filtering provenance, execution status, and accepted career signals.
-
----
-## How the Pipeline Works
+## 1. How the Pipeline Works
 
 The architecture above shows **where responsibilities sit**.
 The pipeline itself is easier to understand as a sequence of transformations — from personal context, to external information, to prioritized career signals.
 
-### 1. Understand the User
+### 1.1 Understand the User
 
 PathSignal begins by separating factual background from career preferences.
 
@@ -177,7 +162,7 @@ This separation prevents downstream planning from treating a personal preference
 
 ---
 
-### 2. Plan What to Look For
+### 1.2 Plan What to Look For
 
 User context is translated into structured career-planning objects.
 
@@ -199,7 +184,7 @@ For source monitoring, career context is also translated into longer-term **Info
 
 ---
 
-### 3. Acquire External Information
+### 1.3 Acquire External Information
 
 PathSignal supports multiple ways for information to enter the system.
 
@@ -233,7 +218,7 @@ Regardless of acquisition method, external information is converted into a provi
 
 ---
 
-### 4. Turn Information into CareerSignals
+### 1.4 Turn Information into CareerSignals
 
 Not every retrieved item deserves further attention.
 
@@ -255,7 +240,7 @@ This boundary is important: downstream components no longer need to understand w
 
 ---
 
-### 5. Assess What Matters
+### 1.5 Assess What Matters
 
 Once information becomes a `CareerSignal`, PathSignal evaluates it according to its meaning rather than its source.
 
@@ -280,7 +265,7 @@ The two categories use different semantic assessment dimensions, while determini
 
 ---
 
-### 6. Remember, Interpret, and Surface
+### 1.6 Remember, Interpret, and Surface
 
 PathSignal does not treat every execution as a fresh session.
 
@@ -303,7 +288,7 @@ The pipeline progressively transforms:
 > **personal context → search intent → external information → structured signals → prioritized decision support**
 
 ---
-## Intelligence & State Design
+## 2. Intelligence & State Design
 
 PathSignal does not treat AI reasoning, structured data, and persistence as separate technical features.
 
@@ -311,7 +296,7 @@ Together, they define **how the system represents information, makes bounded jud
 
 ---
 
-### 4.1 Data as the System Language
+### 2.1 Data as the System Language
 
 One of the most important lessons from building V1 was that data models are not merely storage formats.
 
@@ -348,7 +333,7 @@ Keeping these meanings separate makes downstream behavior easier to reason about
 
 ---
 
-### 4.2 Where LLM Reasoning Adds Value
+### 2.2 Where LLM Reasoning Adds Value
 
 PathSignal does not use an LLM simply because a task can be sent to one.
 
@@ -389,7 +374,7 @@ This separation gives LLMs flexibility where interpretation is useful without al
 
 ---
 
-### 4.3 Hybrid Priority Assessment
+### 2.3 Hybrid Priority Assessment
 
 A relevant signal is not automatically an important signal.
 
@@ -425,7 +410,7 @@ The final priority is therefore **not an unconstrained model opinion**.
 
 ---
 
-### 4.4 SQLite as System Memory
+### 2.4 SQLite as System Memory
 
 PathSignal uses SQLite as persistent system memory rather than merely as a place to save final outputs.
 
@@ -466,7 +451,7 @@ LLMs handle bounded semantic ambiguity.
 Persistent memory connects one execution to the next.
 
 ---
-## Key Design Decisions
+## 3. Key Design Decisions
 
 PathSignal V1 did not arrive at its current structure all at once.
 
@@ -474,7 +459,7 @@ Several of the most important architectural decisions came from identifying plac
 
 ---
 
-### 5.1 User Preferences ≠ SearchScope
+### 3.1 User Preferences ≠ SearchScope
 
 One of the early design problems was deciding where career preferences should live.
 
@@ -514,7 +499,7 @@ The distinction allows search behavior to change without redefining the user's u
 
 ---
 
-### 5.2 Active Discovery ≠ Continuous Monitoring
+### 3.2 Active Discovery ≠ Continuous Monitoring
 
 Another important decision came from realizing that “finding information” is not a single responsibility.
 
@@ -564,7 +549,7 @@ This keeps acquisition logic flexible without forcing the intelligence layer to 
 
 ---
 
-### 5.3 Contract Before Implementation
+### 3.3 Contract Before Implementation
 
 The most important change was not a specific module, but the way new modules were approached.
 
@@ -629,7 +614,7 @@ Implementation should not begin before responsibility and completion criteria ar
 For PathSignal, this separation of responsibilities became one of the main tools for controlling complexity as V1 grew from a simple search idea into a multi-stage information system.
 
 ---
-## V1 Demo & Validation
+## 4. V1 Demo & Validation
 
 The public PathSignal repository uses **synthetic data and public-safe artifacts** to demonstrate the V1 workflow without exposing private resumes, career preferences, credentials, search history, or runtime databases.
 
@@ -637,7 +622,7 @@ The purpose of the demo is not to reproduce a real user's career search. It is t
 
 ---
 
-### 6.1 Public-Safe Synthetic Demo
+### 4.1 Public-Safe Synthetic Demo
 
 A simplified V1 flow can be inspected through the included example artifacts:
 
@@ -680,7 +665,7 @@ These monitoring examples demonstrate how evaluated sources can be handed into t
 
 ---
 
-### 6.2 Example Artifacts
+### 4.2 Example Artifacts
 
 | Artifact                                                             | What it demonstrates                                                |
 | -------------------------------------------------------------------- | ------------------------------------------------------------------- |
@@ -695,7 +680,7 @@ The final filename retains an internal historical identifier, but the public REA
 
 ---
 
-### 6.3 Automated Validation
+### 4.3 Automated Validation
 
 The sanitized repository currently passes a public-safe offline validation suite of:
 
@@ -709,7 +694,7 @@ The test count is therefore not presented as a measure of hand-written test code
 
 ---
 
-### 6.4 Runtime & Persistence Validation
+### 4.4 Runtime & Persistence Validation
 
 Automated tests were only one part of V1 validation.
 
@@ -745,7 +730,7 @@ This matters in a pipeline where planning objects, acquired information, filtere
 The V1 development process therefore treats **successful execution** and **contract-consistent behavior** as related, but different, standards of completion.
 
 ---
-## V1 Scope & Limitations
+## 5. V1 Scope & Limitations
 
 PathSignal V1 is intentionally scoped as a **working career-intelligence pipeline**, not a fully autonomous career agent or production-scale information platform.
 
@@ -764,7 +749,7 @@ These foundations define the implemented and validated V1 workflow on which futu
 
 ---
 
-### 7.1 What V1 Does
+### 5.1 What V1 Does
 
 V1 can:
 
@@ -783,7 +768,7 @@ Together, these capabilities form the stable information workflow that future ag
 
 ---
 
-### 7.2 What V1 Does Not Attempt
+### 5.2 What V1 Does Not Attempt
 
 #### Autonomous Scheduling and Monitoring Lifecycle
 
@@ -895,7 +880,7 @@ The system is designed to improve the quality and organization of information av
 
 ---
 
-### 7.3 Why Stop Here?
+### 5.3 Why Stop Here?
 
 The boundary is intentional.
 
@@ -916,7 +901,7 @@ It is:
 > *Which orchestration decisions should PathSignal begin making for itself?*
 
 ---
-## 8. V2 — Structure First, Autonomy Second
+## 6. V2 — Structure First, Autonomy Second
 
 V1 establishes the workflow PathSignal can execute.
 
@@ -930,7 +915,7 @@ It is to introduce **controlled agentic orchestration on top of the contracts, c
 
 ---
 
-### 8.1 From Workflow Execution to Orchestration
+### 6.1 From Workflow Execution to Orchestration
 
 In V1, the major responsibilities are explicit:
 
@@ -987,7 +972,7 @@ In V2, accumulated memory can also become **evidence for future action**.
 
 ---
 
-### 8.2 What Can Become Autonomous?
+### 6.2 What Can Become Autonomous?
 
 Several decisions that are explicit, bounded, or manually triggered in V1 become natural candidates for future orchestration.
 
@@ -1196,7 +1181,7 @@ It is to reduce information overload by surfacing only changes that meaningfully
 
 ---
 
-### 8.3 Candidate Agent Responsibilities
+### 6.3 Candidate Agent Responsibilities
 
 These orchestration decisions could eventually be organized into bounded agent responsibilities.
 
@@ -1220,7 +1205,7 @@ The number of agents is not itself an architectural goal.
 
 ---
 
-### 8.4 Agents Operate on V1 Contracts
+### 6.4 Agents Operate on V1 Contracts
 
 V2 agents should not recreate the underlying information system whenever they reason.
 
@@ -1276,7 +1261,7 @@ V2 gives agents controlled authority to operate within it.
 
 ---
 
-### 8.5 Controlled Autonomy
+### 6.5 Controlled Autonomy
 
 More autonomy is useful only when the system can constrain and observe what autonomous components are doing.
 
@@ -1322,7 +1307,7 @@ It is:
 
 ---
 
-### 8.6 V2 Direction
+### 6.6 V2 Direction
 
 The progression from V1 to V2 can be summarized as:
 
@@ -1378,7 +1363,7 @@ V2 begins asking:
 > **Can PathSignal use its accumulated state to recognize when that workflow should act, adapt, or repeat — without waiting for every orchestration decision to come from the user?**
 
 ---
-## 9. Repository, Local Run & Privacy
+## 7. Repository, Local Run & Privacy
 
 This repository is the **sanitized public V1 snapshot of PathSignal**.
 
@@ -1386,7 +1371,7 @@ It preserves the core implementation, system contracts, tests, database migratio
 
 ---
 
-### 9.1 Repository Structure
+### 7.1 Repository Structure
 
 At a responsibility level, the public snapshot can be read as:
 
@@ -1439,7 +1424,7 @@ The repository is intended to be readable at multiple levels:
 
 ---
 
-### 9.2 Local Inspection & Execution
+### 7.2 Local Inspection & Execution
 
 The public repository can be inspected locally without reproducing the original private development environment.
 
@@ -1523,7 +1508,7 @@ The synthetic inputs and example artifacts can be inspected independently of liv
 
 ---
 
-### 9.3 Public-Safe Validation
+### 7.3 Public-Safe Validation
 
 The current sanitized snapshot has been validated with a public-safe offline suite of:
 
@@ -1547,7 +1532,7 @@ Before the public release is sealed, the final repository state should be valida
 
 ---
 
-### 9.4 Privacy & Sanitization
+### 7.4 Privacy & Sanitization
 
 PathSignal began as a system built around a real personal career-search workflow.
 
@@ -1573,7 +1558,7 @@ The public repository should therefore be understood as a reproducible architect
 
 ---
 
-### 9.5 Project History
+### 7.5 Project History
 
 PathSignal originated from an internal development project previously codenamed **AgentWorkflow**.
 
@@ -1597,7 +1582,7 @@ The final section steps away from the repository itself and reflects on the larg
 
 ---
 
-## 10. Building Reflection
+## 8. Building Reflection
 
 PathSignal started from a simple personal problem:
 
