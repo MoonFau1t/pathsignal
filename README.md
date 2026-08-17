@@ -30,108 +30,19 @@ PathSignal separates **how information is acquired** from **what that informatio
 
 The first split creates two complementary automated acquisition strategies: **active opportunity discovery** and **continuous source monitoring**. Their outputs, together with optionally supplied human input, converge at the shared `SourceItem` layer before entering the same downstream signal pipeline. Once information is transformed into a `CareerSignal`, the second split routes it according to its semantic role: **opportunity** or **career intelligence**.
 
+---
 
-```mermaid
-%%{init: { "flowchart": { "curve": "linear", "nodeSpacing": 35, "rankSpacing": 45 } } }%%
+![PathSignal V1 System Architecture](docs/assets/pathsignal-v1-architecture.svg)
 
-flowchart TB
+---
 
-    U[User Context] --> P[Career Planning]
 
-    %% ─────────────────────────────
-    %% Acquisition Strategy
-    %% ─────────────────────────────
-
-    subgraph ACQ["Two Complementary Acquisition Paths"]
-        direction LR
-
-        subgraph A["Line A — Active Opportunity Discovery"]
-            direction TB
-            SP[Search Plans]
-            BS[Brave Search API]
-            JO[Job Opportunity Candidates]
-
-            SP --> BS
-            BS --> JO
-        end
-
-        subgraph B["Line B — Continuous Source Monitoring"]
-            direction TB
-            IN[Information Needs]
-            SD[Source Discovery]
-            MS[Monitored Sources]
-            RW[RSS / Selected Websites]
-
-            IN --> SD
-            SD --> MS
-            MS --> RW
-        end
-    end
-
-    P --> SP
-    P --> IN
-
-    %% ─────────────────────────────
-    %% Shared Signal Pipeline
-    %% ─────────────────────────────
-
-    JO --> SI[Source Items]
-    RW --> SI
-
-    MI[Optional Manual Input] --> SI
-
-    SI --> AF[AI Filter]
-    AF --> CS[CareerSignal]
-
-    %% ─────────────────────────────
-    %% Signal Meaning
-    %% ─────────────────────────────
-
-    subgraph SEM["Signal Semantics"]
-        direction LR
-
-        subgraph OP["Opportunity"]
-            direction TB
-            OS[Job Opportunities]
-            OA[Opportunity Assessment]
-
-            OS --> OA
-        end
-
-        subgraph INT["Career Intelligence"]
-            direction TB
-            IS[News · Company · Funding · Market Trends]
-            IA[Intelligence Assessment]
-
-            IS --> IA
-        end
-    end
-
-    CS --> OS
-    CS --> IS
-
-    OA --> PS[Prioritized Signals]
-    IA --> PS
-
-    PS --> BI[Interpretation & Briefing]
-
-    %% ─────────────────────────────
-    %% Persistent State
-    %% ─────────────────────────────
-
-    DB[(SQLite System Memory)]
-
-    P -.-> DB
-    CS -.-> DB
-```
-
-> **The first split represents how information is acquired. The second represents what that information means to the user.**
 
 ### V1 Boundary Notes
 
 Optional human input enters at the shared `SourceItem` boundary, so manually discovered information does not bypass the same downstream filtering and assessment process.
 
-Continuous Source Monitoring in V1 is **run-based rather than autonomously scheduled**. SQLite preserves state across runs; the dotted connections in the diagram are representative rather than exhaustive.
+Continuous Source Monitoring in V1 is **run-based rather than autonomously scheduled**. SQLite preserves state across runs; the dashed connections in the diagram are representative rather than exhaustive.
 
 ---
 

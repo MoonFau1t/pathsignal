@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="1200" viewBox="0 0 1120 1200" role="img" aria-labelledby="title desc">
+  <title id="title">PathSignal V1 Architecture</title>
+  <desc id="desc">Fixed-layout architecture diagram showing user context, career planning, two complementary acquisition paths, shared signal processing, semantic branches, prioritization, briefing, optional manual input, and SQLite system memory.</desc>
+  <defs>
+    <marker id="arrow-primary" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f5f86"/>
+    </marker>
+    <marker id="arrow-secondary" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7e8fa3"/>
+    </marker>
+    <filter id="soft-shadow" x="-8%" y="-18%" width="116%" height="136%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#18344f" flood-opacity="0.10"/>
+    </filter>
+    <style>
+      .background { fill: #ffffff; }
+      .section-title { fill: #385978; font-family: "Segoe UI", Arial, sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0; }
+      .lane-title { fill: #254c6d; font-family: "Segoe UI", Arial, sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0; }
+      .node { fill: #f8fbff; stroke: #5c87ad; stroke-width: 1.6; rx: 7; filter: url(#soft-shadow); }
+      .node-strong { fill: #eef6ff; stroke: #3f78a8; stroke-width: 1.8; rx: 7; filter: url(#soft-shadow); }
+      .side-node { fill: #fbfcfe; stroke: #a9b8c8; stroke-width: 1.4; rx: 7; }
+      .label { fill: #17324a; font-family: "Segoe UI", Arial, sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0; }
+      .small-label { fill: #465f75; font-family: "Segoe UI", Arial, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0; }
+      .primary-flow { fill: none; stroke: #2f5f86; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-primary); }
+      .primary-junction { fill: none; stroke: #2f5f86; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; }
+      .secondary-flow { fill: none; stroke: #7e8fa3; stroke-width: 1.7; stroke-dasharray: 6 5; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow-secondary); }
+      .memory-flow { opacity: 0.72; }
+      .memory { fill: #fbfcfe; stroke: #a9b8c8; stroke-width: 1.4; }
+    </style>
+  </defs>
+
+  <rect class="background" x="0" y="0" width="1120" height="1200"/>
+
+  <text class="section-title" x="560" y="189" text-anchor="middle">Two Complementary Acquisition Paths</text>
+
+  <text class="section-title" x="560" y="827" text-anchor="middle">Signal Semantics</text>
+
+  <text class="lane-title" x="305" y="245" text-anchor="middle">Line A — Active Opportunity Discovery</text>
+  <text class="lane-title" x="815" y="245" text-anchor="middle">Line B — Continuous Source Monitoring</text>
+
+  <text class="lane-title" x="305" y="865" text-anchor="middle">Opportunity</text>
+  <text class="lane-title" x="815" y="865" text-anchor="middle">Career Intelligence</text>
+
+  <!-- Top context and planning spine -->
+  <rect class="node-strong" x="450" y="28" width="220" height="48"/>
+  <text class="label" x="560" y="57" text-anchor="middle">User Context</text>
+
+  <rect class="node-strong" x="450" y="96" width="220" height="48"/>
+  <text class="label" x="560" y="125" text-anchor="middle">Career Planning</text>
+
+  <path class="primary-flow" d="M560 76 V96"/>
+
+  <!-- Acquisition path A -->
+  <rect class="node" x="170" y="275" width="270" height="46"/>
+  <text class="label" x="305" y="303" text-anchor="middle">Search Plans</text>
+
+  <rect class="node" x="170" y="345" width="270" height="46"/>
+  <text class="label" x="305" y="373" text-anchor="middle">Brave Search API</text>
+
+  <rect class="node" x="170" y="415" width="270" height="46"/>
+  <text class="label" x="305" y="443" text-anchor="middle">Job Opportunity Candidates</text>
+
+  <!-- Acquisition path B -->
+  <rect class="node" x="680" y="275" width="270" height="46"/>
+  <text class="label" x="815" y="303" text-anchor="middle">Information Needs</text>
+
+  <rect class="node" x="680" y="345" width="270" height="46"/>
+  <text class="label" x="815" y="373" text-anchor="middle">Source Discovery</text>
+
+  <rect class="node" x="680" y="415" width="270" height="46"/>
+  <text class="label" x="815" y="443" text-anchor="middle">Monitored Sources</text>
+
+  <rect class="node" x="680" y="485" width="270" height="46"/>
+  <text class="label" x="815" y="513" text-anchor="middle">RSS / Selected Websites</text>
+
+  <path class="primary-junction" d="M505 144 V160 H305 V226"/>
+  <path class="primary-flow" d="M305 254 V275"/>
+  <path class="primary-junction" d="M615 144 V160 H815 V226"/>
+  <path class="primary-flow" d="M815 254 V275"/>
+
+  <path class="primary-flow" d="M305 321 V345"/>
+  <path class="primary-flow" d="M305 391 V415"/>
+  <path class="primary-flow" d="M815 321 V345"/>
+  <path class="primary-flow" d="M815 391 V415"/>
+  <path class="primary-flow" d="M815 461 V485"/>
+
+  <!-- Shared signal pipeline -->
+  <rect class="node-strong" x="420" y="590" width="280" height="50"/>
+  <text class="label" x="560" y="620" text-anchor="middle">Source Items</text>
+
+  <rect class="node-strong" x="420" y="665" width="280" height="50"/>
+  <text class="label" x="560" y="695" text-anchor="middle">AI Filter</text>
+
+  <rect class="node-strong" x="420" y="740" width="280" height="50"/>
+  <text class="label" x="560" y="770" text-anchor="middle">CareerSignal</text>
+
+  <path class="primary-flow" d="M305 461 V560 H505 V590"/>
+  <path class="primary-flow" d="M815 531 V560 H615 V590"/>
+  <path class="primary-flow" d="M560 640 V665"/>
+  <path class="primary-flow" d="M560 715 V740"/>
+
+  <!-- Secondary manual input -->
+  <rect class="side-node" x="95" y="591" width="225" height="48"/>
+  <text class="label" x="207.5" y="620" text-anchor="middle">Optional Manual Input</text>
+  <path class="secondary-flow" d="M320 615 H420"/>
+
+  <!-- Secondary persistence memory -->
+  <path class="memory" d="M830 737 C830 726 879 719 940 719 C1001 719 1050 726 1050 737 V789 C1050 800 1001 807 940 807 C879 807 830 800 830 789 Z"/>
+  <path class="memory" d="M830 737 C830 748 879 755 940 755 C1001 755 1050 748 1050 737"/>
+  <path class="memory" d="M830 789 C830 800 879 807 940 807 C1001 807 1050 800 1050 789" fill="none"/>
+  <text class="label" x="940" y="779" text-anchor="middle">SQLite System Memory</text>
+  <text class="small-label" x="940" y="795" text-anchor="middle">persistent state</text>
+
+  <path class="secondary-flow memory-flow" d="M670 120 H990 V724"/>
+  <path class="secondary-flow memory-flow" d="M700 765 H830"/>
+
+  <!-- Semantic branches -->
+  <rect class="node" x="170" y="895" width="270" height="46"/>
+  <text class="label" x="305" y="923" text-anchor="middle">Job Opportunities</text>
+
+  <rect class="node" x="170" y="966" width="270" height="46"/>
+  <text class="label" x="305" y="994" text-anchor="middle">Opportunity Assessment</text>
+
+  <rect class="node" x="660" y="895" width="310" height="46"/>
+  <text class="label" x="815" y="923" text-anchor="middle">News · Company · Funding · Market Trends</text>
+
+  <rect class="node" x="680" y="966" width="270" height="46"/>
+  <text class="label" x="815" y="994" text-anchor="middle">Intelligence Assessment</text>
+
+  <path class="primary-junction" d="M560 790 V810 H305 V850"/>
+  <path class="primary-flow" d="M305 874 V895"/>
+  <path class="primary-junction" d="M560 810 H815 V850"/>
+  <path class="primary-flow" d="M815 874 V895"/>
+  <path class="primary-flow" d="M305 941 V966"/>
+  <path class="primary-flow" d="M815 941 V966"/>
+
+  <!-- Prioritization and briefing -->
+  <rect class="node-strong" x="420" y="1055" width="280" height="50"/>
+  <text class="label" x="560" y="1085" text-anchor="middle">Prioritized Signals</text>
+
+  <rect class="node-strong" x="420" y="1130" width="280" height="50"/>
+  <text class="label" x="560" y="1160" text-anchor="middle">Interpretation &amp; Briefing</text>
+
+  <path class="primary-flow" d="M305 1012 V1030 H505 V1055"/>
+  <path class="primary-flow" d="M815 1012 V1030 H615 V1055"/>
+  <path class="primary-flow" d="M560 1105 V1130"/>
+</svg>
