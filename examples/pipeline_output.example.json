@@ -1,0 +1,168 @@
+{
+  "pipeline_version": "pathsignal_public_snapshot_v1",
+  "phase": "synthetic_demo",
+  "generated_at": "2026-08-15T00:00:00Z",
+  "summary": {
+    "synthetic": true,
+    "user_profile_loaded": true,
+    "total_target_career_paths": 3,
+    "total_search_queries": 3,
+    "total_search_plans": 3,
+    "total_raw_items": 2,
+    "total_ai_filter_results": 2,
+    "total_filtered_raw_items": 1,
+    "total_rejected_raw_items": 1,
+    "total_career_signals": 1
+  },
+  "user_profile": {
+    "profile_id": "example_user",
+    "name": "example_user",
+    "background_summary": "Synthetic public demonstration profile focused on AI, strategy, and market intelligence.",
+    "education": [],
+    "work_experience": [],
+    "skills": [
+      "business analysis",
+      "market research",
+      "AI strategy"
+    ],
+    "interests": [
+      "venture capital",
+      "corporate strategy",
+      "technology consulting"
+    ],
+    "preferred_locations": [
+      "Remote",
+      "New York",
+      "San Francisco"
+    ],
+    "preferred_roles": [
+      "VC Analyst",
+      "AI Strategy Analyst",
+      "Technology Consulting Analyst"
+    ],
+    "constraints": [
+      "Prefer early-career roles.",
+      "Avoid unpaid opportunities."
+    ],
+    "raw_resume_text": "",
+    "metadata": {
+      "synthetic": true
+    }
+  },
+  "search_scope": {
+    "scope_id": "default_v1_scope",
+    "name": "Default V1 Career Intelligence Search Scope",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "source_types": [
+      "search_api",
+      "rss",
+      "selected_website"
+    ]
+  },
+  "target_career_paths": [
+    {
+      "path_id": "path_ai_strategy_example",
+      "title": "AI Strategy Analyst",
+      "category": "ai_strategy",
+      "fit_score": 0.91
+    }
+  ],
+  "search_queries": [
+    {
+      "query_id": "query_ai_strategy_example",
+      "career_path_id": "path_ai_strategy_example",
+      "career_path_title": "AI Strategy Analyst",
+      "query_text": "AI strategy analyst early career",
+      "query_type": "job_search",
+      "priority": 0.91,
+      "target_roles": [
+        "AI Strategy Analyst"
+      ],
+      "keywords": [
+        "AI strategy",
+        "early career"
+      ],
+      "negative_keywords": [
+        "unpaid",
+        "senior director"
+      ],
+      "rationale": "Synthetic query demonstrating role discovery."
+    }
+  ],
+  "search_plans": [
+    {
+      "plan_id": "plan_ai_strategy_example",
+      "query_id": "query_ai_strategy_example",
+      "query_text": "AI strategy analyst early career",
+      "source_type": "search_api",
+      "max_results": 10,
+      "freshness_days": 30,
+      "locations": [
+        "Remote"
+      ],
+      "metadata": {
+        "synthetic": true
+      }
+    }
+  ],
+  "raw_items": [
+    {
+      "raw_item_id": "raw_example_ai_company_role",
+      "source_type": "search_api",
+      "title": "Example AI Strategy Analyst Role",
+      "url": "https://example.com/pathsignal/example-ai-strategy-analyst",
+      "description": "Synthetic opportunity at Example AI Company for public demonstration.",
+      "published_at": null,
+      "metadata": {
+        "organization": "Example AI Company",
+        "synthetic": true
+      }
+    },
+    {
+      "raw_item_id": "raw_example_unpaid_role",
+      "source_type": "selected_website",
+      "title": "Example Unpaid Research Internship",
+      "url": "https://example.com/pathsignal/example-unpaid-research-internship",
+      "description": "Synthetic rejected item demonstrating constraint handling.",
+      "published_at": null,
+      "metadata": {
+        "organization": "Example Research Lab",
+        "synthetic": true
+      }
+    }
+  ],
+  "ai_filter_results": [
+    {
+      "raw_item_id": "raw_example_ai_company_role",
+      "decision": "accept",
+      "confidence": 0.86,
+      "rationale": "Matches AI strategy interests and early-career preference."
+    },
+    {
+      "raw_item_id": "raw_example_unpaid_role",
+      "decision": "reject",
+      "confidence": 0.94,
+      "rationale": "Rejected because the synthetic preference model excludes unpaid roles."
+    }
+  ],
+  "filtered_raw_items": [
+    "raw_example_ai_company_role"
+  ],
+  "career_signals": [
+    {
+      "signal_id": "signal_example_ai_strategy_role",
+      "category": "job",
+      "title": "Example AI Strategy Analyst Role",
+      "summary": "Synthetic accepted career signal for public demonstration.",
+      "source_url": "https://example.com/pathsignal/example-ai-strategy-analyst",
+      "priority_assessment": {
+        "priority_level": "high",
+        "rationale": "Strong fit with public synthetic preferences for AI and strategy."
+      }
+    }
+  ],
+  "publication_note": "This file is a compact synthetic example. It does not contain real source results, resumes, names, emails, education, employment history, or model responses."
+}

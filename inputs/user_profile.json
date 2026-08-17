@@ -1,0 +1,43 @@
+{
+  "profile_id": "example_user",
+  "name": "example_user",
+  "background_summary": "Synthetic early-career profile for demonstrating PathSignal. The example user is interested in roles that combine AI, business strategy, industry research, and organizational decision-making.",
+  "education": [],
+  "work_experience": [],
+  "skills": [
+    "business analysis",
+    "market research",
+    "AI strategy",
+    "structured reasoning",
+    "source evaluation"
+  ],
+  "interests": [
+    "venture capital",
+    "corporate strategy",
+    "AI strategy",
+    "technology consulting",
+    "industry research"
+  ],
+  "preferred_locations": [
+    "Remote",
+    "New York",
+    "San Francisco"
+  ],
+  "preferred_roles": [
+    "VC Analyst",
+    "AI Strategy Analyst",
+    "Corporate Strategy Analyst",
+    "Technology Consulting Analyst",
+    "Industry Research Analyst"
+  ],
+  "constraints": [
+    "Prefer early-career or associate-level roles.",
+    "Avoid unpaid opportunities.",
+    "Avoid repetitive process-outsourcing work with limited analytical scope."
+  ],
+  "raw_resume_text": "",
+  "metadata": {
+    "synthetic": true,
+    "publication_note": "Public demonstration profile. Contains no real resume, education, employment, contact, or demographic information."
+  }
+}

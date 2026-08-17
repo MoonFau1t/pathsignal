@@ -1,0 +1,122 @@
+{
+  "generation_metadata": {
+    "schema_version": "target_career_path_generation_v1",
+    "prompt_version": "target_career_path_prompt_v1",
+    "model": "synthetic_public_example",
+    "generation_mode": "synthetic_example",
+    "profile_id": "example_user",
+    "synthetic": true,
+    "publication_note": "Curated public example. Contains no real user biography or model output."
+  },
+  "target_career_paths": [
+    {
+      "path_id": "path_vc_analyst_example",
+      "title": "Venture Capital Analyst",
+      "category": "venture_capital",
+      "description": "Analyze markets, startups, and investment themes with emphasis on AI-enabled business models.",
+      "fit_score": 0.88,
+      "rationale": [
+        "Matches interest in investment-related roles and industry research.",
+        "Uses market mapping and strategic analysis without requiring prior biography."
+      ],
+      "keywords": [
+        "venture capital",
+        "AI startups",
+        "market mapping",
+        "investment thesis"
+      ],
+      "suggested_roles": [
+        "VC Analyst",
+        "Investment Research Analyst"
+      ],
+      "search_seed_terms": [
+        "venture capital analyst AI startups entry level",
+        "investment research analyst technology markets"
+      ],
+      "metadata": {
+        "synthetic": true,
+        "profile_evidence": [
+          "Interest in AI, business strategy, and industry analysis."
+        ],
+        "preference_evidence": [
+          "Preference for early-career analytical roles."
+        ],
+        "constraint_notes": [
+          "Avoid unpaid roles."
+        ]
+      }
+    },
+    {
+      "path_id": "path_ai_strategy_example",
+      "title": "AI Strategy Analyst",
+      "category": "ai_strategy",
+      "description": "Evaluate AI adoption opportunities, competitive positioning, and operating-model implications for organizations.",
+      "fit_score": 0.91,
+      "rationale": [
+        "Combines AI interest with business and organizational decision-making.",
+        "Supports strategic work without relying on real resume details."
+      ],
+      "keywords": [
+        "AI strategy",
+        "digital transformation",
+        "competitive intelligence",
+        "operating model"
+      ],
+      "suggested_roles": [
+        "AI Strategy Analyst",
+        "Strategy and Operations Analyst"
+      ],
+      "search_seed_terms": [
+        "AI strategy analyst early career",
+        "digital transformation analyst AI consulting"
+      ],
+      "metadata": {
+        "synthetic": true,
+        "profile_evidence": [
+          "Interest in AI, strategy, and decision support."
+        ],
+        "preference_evidence": [
+          "Preference for analytical, high-learning roles."
+        ],
+        "constraint_notes": []
+      }
+    },
+    {
+      "path_id": "path_tech_consulting_example",
+      "title": "Technology Consulting Analyst",
+      "category": "tech_consulting",
+      "description": "Help clients evaluate technology strategy, process design, and AI-enabled business transformation.",
+      "fit_score": 0.83,
+      "rationale": [
+        "Provides structured early-career training and broad industry exposure.",
+        "Fits preference for professional services with analytical scope."
+      ],
+      "keywords": [
+        "technology consulting",
+        "AI transformation",
+        "business analysis",
+        "client strategy"
+      ],
+      "suggested_roles": [
+        "Technology Consulting Analyst",
+        "Business Technology Analyst"
+      ],
+      "search_seed_terms": [
+        "technology consulting analyst AI transformation entry level",
+        "business technology analyst strategy consulting"
+      ],
+      "metadata": {
+        "synthetic": true,
+        "profile_evidence": [
+          "Preference for strategic and analytical work."
+        ],
+        "preference_evidence": [
+          "Open to bridge paths with mentorship and learning density."
+        ],
+        "constraint_notes": [
+          "Avoid repetitive low-scope process work."
+        ]
+      }
+    }
+  ]
+}

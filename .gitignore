@@ -1,0 +1,66 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python cache and test artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
+# Runtime databases and generated local data
+data/*.db
+data/*.db-wal
+data/*.db-shm
+data/*.json
+data/**/*.db
+data/**/*.db-wal
+data/**/*.db-shm
+data/**/*.json
+*.sqlite
+*.sqlite3
+
+# Private local user inputs
+inputs/resume/
+inputs/*.private.json
+inputs/*.local.json
+inputs/user_profile.local.json
+inputs/user_preferences.local.json
+
+# Keep the checked-in PathSignal synthetic runtime fixtures public.
+!inputs/user_profile.json
+!inputs/user_preferences_final.json
+!inputs/search_scope.json
+!inputs/user_preferences.example.json
+
+# Runtime outputs that may contain private user data or external source data
+outputs/profile/
+outputs/planning/source_monitoring/
+outputs/raw/*.json
+outputs/**/*.log
+
+# Keep curated synthetic examples and compatibility fixtures public.
+!outputs/raw/mock_pipeline_output.json
+!outputs/planning/target_career_paths.json
+!examples/**/*.json
+
+# Logs and temporary files
+*.log
+logs/
+tmp*/
+tmp_*/
+.test-tmp/
+
+# Editor / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

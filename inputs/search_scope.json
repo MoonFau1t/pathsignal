@@ -1,0 +1,57 @@
+{
+  "scope_id": "default_v1_scope",
+  "name": "Default V1 Career Intelligence Search Scope",
+  "description": "Default search scope for V1 career opportunity discovery.",
+  "languages": [
+    "en",
+    "zh"
+  ],
+  "source_types": [
+    "search_api",
+    "rss",
+    "selected_website"
+  ],
+  "allowed_domains": [
+    "jobs.lever.co",
+    "boards.greenhouse.io",
+    "careers.tencent.com",
+    "jobs.bytedance.com",
+    "careers.google.com",
+    "careers.microsoft.com",
+    "linkedin.com",
+    "wellfound.com"
+  ],
+  "excluded_domains": [
+    "course",
+    "bootcamp",
+    "certificate",
+    "udemy.com",
+    "coursera.org"
+  ],
+  "selected_websites": [
+    {
+      "name": "Lever Jobs",
+      "url": "https://jobs.lever.co",
+      "source_type": "selected_website",
+      "notes": "Useful for startup and tech company career pages."
+    },
+    {
+      "name": "Greenhouse Job Boards",
+      "url": "https://boards.greenhouse.io",
+      "source_type": "selected_website",
+      "notes": "Useful for startup and growth-stage company roles."
+    }
+  ],
+  "rss_feeds": [
+    {
+      "name": "Example AI News RSS",
+      "url": "https://example.com/ai-news/rss",
+      "notes": "Placeholder RSS feed for Phase 6."
+    }
+  ],
+  "freshness_days": 30,
+  "max_results_per_query": 10,
+  "enable_search_api": true,
+  "enable_rss": true,
+  "enable_selected_websites": true
+}

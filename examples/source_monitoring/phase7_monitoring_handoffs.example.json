@@ -1,0 +1,45 @@
+{
+  "phase7_monitoring_handoffs": [
+    {
+      "phase7_monitoring_handoff_id": "handoff-public-example-ai-newsroom-rss",
+      "acquisition_resolution_id": "resolution-public-example-ai-newsroom-rss",
+      "candidate_source_id": "candidate-public-example-ai-newsroom-rss",
+      "entity_id": "entity-public-example-ai-company",
+      "source_url": "https://example.com/news/rss.xml",
+      "acquisition_method": "rss",
+      "acquisition_config_ref": "feed-result-public-example-ai-newsroom-rss",
+      "supported_information_need_ids": [
+        "need-public-example-ai-strategy-updates"
+      ],
+      "source_role": "newsroom",
+      "provenance": {
+        "synthetic_example": true,
+        "final_source_evaluation_id": "evaluation-public-example-ai-newsroom-rss",
+        "verified_feed_url": "https://example.com/news/rss.xml",
+        "selected_feed_verification_result_id": "feed-result-public-example-ai-newsroom-rss",
+        "max_discovered_items_per_run": 5
+      },
+      "schema_version": "phase7_monitoring_handoff_v1"
+    },
+    {
+      "phase7_monitoring_handoff_id": "handoff-public-example-research-selected-website",
+      "acquisition_resolution_id": "resolution-public-example-research-selected-website",
+      "candidate_source_id": "candidate-public-example-research-selected-website",
+      "entity_id": "entity-public-example-research-institute",
+      "source_url": "https://example.org/research/insights",
+      "acquisition_method": "selected_website",
+      "acquisition_config_ref": "selected-website-config-public-example-research",
+      "supported_information_need_ids": [
+        "need-public-example-market-research"
+      ],
+      "source_role": "research_publications",
+      "provenance": {
+        "synthetic_example": true,
+        "final_source_evaluation_id": "evaluation-public-example-research-selected-website",
+        "selected_website_acquisition_config_id": "selected-website-config-public-example-research",
+        "max_discovered_items_per_run": 3
+      },
+      "schema_version": "phase7_monitoring_handoff_v1"
+    }
+  ]
+}

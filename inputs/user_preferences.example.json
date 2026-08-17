@@ -1,0 +1,39 @@
+{
+  "version": "example_v1",
+  "career_goals": [
+    "Explore early-career roles that combine business analysis and technology."
+  ],
+  "preferred_role_families": [
+    "strategy analyst",
+    "business analyst",
+    "product operations analyst"
+  ],
+  "preferred_industries": [
+    "technology",
+    "consulting",
+    "startups"
+  ],
+  "preferred_locations": [
+    "New York",
+    "Remote"
+  ],
+  "constraints": [
+    "Prefer entry-level or early-career opportunities.",
+    "Avoid unpaid roles."
+  ],
+  "search_preferences": {
+    "languages": [
+      "en"
+    ],
+    "seniority": [
+      "entry_level",
+      "associate"
+    ],
+    "exclude_keywords": [
+      "senior director",
+      "vp",
+      "unpaid"
+    ]
+  },
+  "notes": "Sanitized template only. Create inputs/user_preferences_final.json locally for real runs."
+}

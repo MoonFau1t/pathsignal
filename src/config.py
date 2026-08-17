@@ -1,0 +1,344 @@
+import os
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+load_dotenv(PROJECT_ROOT / ".env")
+
+INPUT_DIR = PROJECT_ROOT / "inputs"
+OUTPUT_DIR = PROJECT_ROOT / "outputs"
+DATA_DIR = PROJECT_ROOT / "data"
+
+RAW_OUTPUT_DIR = OUTPUT_DIR / "raw"
+LEGACY_OUTPUT_DIR = OUTPUT_DIR / "legacy"
+PLANNING_OUTPUT_DIR = OUTPUT_DIR / "planning"
+PROFILE_OUTPUT_DIR = OUTPUT_DIR / "profile"
+SOURCE_MONITORING_PLANNING_OUTPUT_DIR = (
+    PLANNING_OUTPUT_DIR / "source_monitoring"
+)
+
+USER_PROFILE_FILE = INPUT_DIR / "user_profile.json"
+USER_PREFERENCES_FILE = INPUT_DIR / "user_preferences_final.json"
+SEARCH_SCOPE_FILE = INPUT_DIR / "search_scope.json"
+TARGET_CAREER_PATHS_FILE = PLANNING_OUTPUT_DIR / "target_career_paths.json"
+INFORMATION_NEEDS_FILE = (
+    SOURCE_MONITORING_PLANNING_OUTPUT_DIR / "information_needs.json"
+)
+ENTITY_TYPE_CANDIDATES_FILE = (
+    SOURCE_MONITORING_PLANNING_OUTPUT_DIR / "entity_type_candidates.json"
+)
+ENTITY_UNIVERSE_FILE = (
+    SOURCE_MONITORING_PLANNING_OUTPUT_DIR / "entity_universe.json"
+)
+ENTITY_PRIORITIES_FILE = (
+    SOURCE_MONITORING_PLANNING_OUTPUT_DIR / "entity_priorities.json"
+)
+SOURCE_DISCOVERY_PLANS_FILE = (
+    SOURCE_MONITORING_PLANNING_OUTPUT_DIR / "source_discovery_plans.json"
+)
+CANDIDATE_SOURCES_FILE = (
+    SOURCE_MONITORING_PLANNING_OUTPUT_DIR / "candidate_sources.json"
+)
+
+RESUME_INPUT_DIR = INPUT_DIR / "resume"
+DEFAULT_RESUME_FILE = RESUME_INPUT_DIR / "resume.pdf"
+RESUME_TEXT_OUTPUT_FILE = PROFILE_OUTPUT_DIR / "resume_text.txt"
+EXTRACTED_USER_PROFILE_FILE = PROFILE_OUTPUT_DIR / "extracted_user_profile.json"
+
+USER_PROFILE_EXTRACTION_SCHEMA_VERSION = "user_profile_extraction_v1"
+USER_PROFILE_EXTRACTION_PROMPT_VERSION = "user_profile_extraction_prompt_v2"
+USER_PROFILE_EXTRACTION_FORCE_REFRESH = (
+    os.getenv("USER_PROFILE_EXTRACTION_FORCE_REFRESH", "false").lower() == "true"
+)
+
+MOCK_PIPELINE_OUTPUT_FILE = RAW_OUTPUT_DIR / "mock_pipeline_output.json"
+
+DEFAULT_DATABASE_FILE = DATA_DIR / "agentworkflow.db"
+DATABASE_PATH_ENV_VAR = "AGENTWORKFLOW_DB_PATH"
+
+
+def get_database_path(database_path: str | Path | None = None) -> Path:
+    """
+    Resolve the SQLite database path using project-root-relative conventions.
+    """
+
+    configured_path = (
+        str(database_path)
+        if database_path is not None
+        else os.getenv(DATABASE_PATH_ENV_VAR, "")
+    ).strip()
+
+    if not configured_path:
+        return DEFAULT_DATABASE_FILE
+
+    resolved_path = Path(configured_path)
+
+    if resolved_path.is_absolute():
+        return resolved_path
+
+    return PROJECT_ROOT / resolved_path
+
+BRAVE_API_KEY = os.getenv("BRAVE_API_KEY", "")
+
+SEARCH_API_MAX_PLANS = int(os.getenv("SEARCH_API_MAX_PLANS", "5"))
+SEARCH_API_PLAN_OFFSET = int(os.getenv("SEARCH_API_PLAN_OFFSET", "0"))
+SEARCH_API_TIMEOUT_SECONDS = int(os.getenv("SEARCH_API_TIMEOUT_SECONDS", "20"))
+SEARCH_API_DRY_RUN = os.getenv("SEARCH_API_DRY_RUN", "false").lower() == "true"
+
+
+def ensure_project_directories() -> None:
+    """
+    Create required project directories for V1 Phase 7.
+    """
+
+    INPUT_DIR.mkdir(parents=True, exist_ok=True)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    RESUME_INPUT_DIR.mkdir(parents=True, exist_ok=True)
+    RAW_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    LEGACY_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    PLANNING_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    SOURCE_MONITORING_PLANNING_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    PROFILE_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+RSS_DRY_RUN = os.getenv("RSS_DRY_RUN", "true").lower() == "true"
+RSS_MAX_FEEDS = int(os.getenv("RSS_MAX_FEEDS", "5"))
+RSS_MAX_ITEMS_PER_FEED = int(os.getenv("RSS_MAX_ITEMS_PER_FEED", "5"))
+
+SELECTED_WEBSITE_DRY_RUN = (
+    os.getenv("SELECTED_WEBSITE_DRY_RUN", "true").lower() == "true"
+)
+SELECTED_WEBSITE_MAX_SITES = int(
+    os.getenv("SELECTED_WEBSITE_MAX_SITES", "5")
+)
+SELECTED_WEBSITE_MAX_ITEMS_PER_SITE = int(
+    os.getenv("SELECTED_WEBSITE_MAX_ITEMS_PER_SITE", "5")
+)
+
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "deepseek")
+LLM_API_KEY = os.getenv("LLM_API_KEY", "")
+LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://api.deepseek.com")
+
+AI_FILTER_MODEL = os.getenv("AI_FILTER_MODEL", "deepseek-v4-pro")
+TARGET_CAREER_PATH_MODEL = os.getenv(
+    "TARGET_CAREER_PATH_MODEL",
+    AI_FILTER_MODEL,
+)
+TARGET_CAREER_PATH_SCHEMA_VERSION = "target_career_path_generation_v1"
+TARGET_CAREER_PATH_PROMPT_VERSION = "target_career_path_prompt_v1"
+TARGET_CAREER_PATH_FORCE_REFRESH = (
+    os.getenv("TARGET_CAREER_PATH_FORCE_REFRESH", "false").lower() == "true"
+)
+SOURCE_MONITORING_PHASE0_ENABLED = (
+    os.getenv("SOURCE_MONITORING_PHASE0_ENABLED", "false").lower() == "true"
+)
+INFORMATION_NEED_MODEL = os.getenv(
+    "INFORMATION_NEED_MODEL",
+    TARGET_CAREER_PATH_MODEL,
+)
+INFORMATION_NEED_TEMPERATURE = float(
+    os.getenv("INFORMATION_NEED_TEMPERATURE", "0.2")
+)
+INFORMATION_NEED_MAX_PER_PATH_OBJECTIVE = int(
+    os.getenv("INFORMATION_NEED_MAX_PER_PATH_OBJECTIVE", "4")
+)
+INFORMATION_NEED_MAX_TOTAL = int(
+    os.getenv("INFORMATION_NEED_MAX_TOTAL", "120")
+)
+INFORMATION_NEED_MAX_SIGNAL_EXAMPLES = int(
+    os.getenv("INFORMATION_NEED_MAX_SIGNAL_EXAMPLES", "5")
+)
+INFORMATION_NEED_CACHE_ENABLED = (
+    os.getenv("INFORMATION_NEED_CACHE_ENABLED", "true").lower() == "true"
+)
+SOURCE_MONITORING_PHASE1_ENABLED = (
+    os.getenv("SOURCE_MONITORING_PHASE1_ENABLED", "false").lower() == "true"
+)
+ENTITY_TYPE_EXPANSION_MODEL = os.getenv(
+    "ENTITY_TYPE_EXPANSION_MODEL",
+    INFORMATION_NEED_MODEL,
+)
+ENTITY_TYPE_EXPANSION_TEMPERATURE = float(
+    os.getenv("ENTITY_TYPE_EXPANSION_TEMPERATURE", "0.2")
+)
+ENTITY_TYPE_EXPANSION_MAX_CANONICAL_CANDIDATES = int(
+    os.getenv("ENTITY_TYPE_EXPANSION_MAX_CANONICAL_CANDIDATES", "25")
+)
+ENTITY_TYPE_EXPANSION_MAX_PROPOSED_TYPES = int(
+    os.getenv("ENTITY_TYPE_EXPANSION_MAX_PROPOSED_TYPES", "5")
+)
+ENTITY_TYPE_EXPANSION_MAX_TYPES_PER_NEED = int(
+    os.getenv("ENTITY_TYPE_EXPANSION_MAX_TYPES_PER_NEED", "5")
+)
+ENTITY_TYPE_EXPANSION_MAX_DISCOVERY_TERMS = int(
+    os.getenv("ENTITY_TYPE_EXPANSION_MAX_DISCOVERY_TERMS", "8")
+)
+ENTITY_TYPE_EXPANSION_CACHE_ENABLED = (
+    os.getenv("ENTITY_TYPE_EXPANSION_CACHE_ENABLED", "true").lower() == "true"
+)
+SOURCE_MONITORING_PHASE2_ENABLED = (
+    os.getenv("SOURCE_MONITORING_PHASE2_ENABLED", "false").lower() == "true"
+)
+ENTITY_DISCOVERY_MAX_PLANS = int(os.getenv("ENTITY_DISCOVERY_MAX_PLANS", "24"))
+ENTITY_DISCOVERY_RESULTS_PER_PLAN = int(
+    os.getenv("ENTITY_DISCOVERY_RESULTS_PER_PLAN", "5")
+)
+ENTITY_DISCOVERY_LANGUAGES = tuple(
+    item.strip()
+    for item in os.getenv("ENTITY_DISCOVERY_LANGUAGES", "en,zh").split(",")
+    if item.strip()
+)
+ENTITY_DISCOVERY_REGIONS = tuple(
+    item.strip()
+    for item in os.getenv("ENTITY_DISCOVERY_REGIONS", "global,china").split(",")
+    if item.strip()
+)
+ENTITY_DISCOVERY_MAX_ENTITIES_PER_TYPE = int(
+    os.getenv("ENTITY_DISCOVERY_MAX_ENTITIES_PER_TYPE", "5")
+)
+ENTITY_DISCOVERY_EXTRACTION_MAX_EVIDENCE_PER_BATCH = int(
+    os.getenv("ENTITY_DISCOVERY_EXTRACTION_MAX_EVIDENCE_PER_BATCH", "60")
+)
+ENTITY_DISCOVERY_MAX_QUERIES_PER_TYPE = int(
+    os.getenv("ENTITY_DISCOVERY_MAX_QUERIES_PER_TYPE", "4")
+)
+ENTITY_DISCOVERY_PLANNING_MODEL = os.getenv(
+    "ENTITY_DISCOVERY_PLANNING_MODEL",
+    INFORMATION_NEED_MODEL,
+)
+ENTITY_DISCOVERY_PLANNING_TEMPERATURE = float(
+    os.getenv("ENTITY_DISCOVERY_PLANNING_TEMPERATURE", "0.2")
+)
+ENTITY_DISCOVERY_EXTRACTION_MODEL = os.getenv(
+    "ENTITY_DISCOVERY_EXTRACTION_MODEL",
+    INFORMATION_NEED_MODEL,
+)
+ENTITY_DISCOVERY_EXTRACTION_TEMPERATURE = float(
+    os.getenv("ENTITY_DISCOVERY_EXTRACTION_TEMPERATURE", "0.1")
+)
+ENTITY_DISCOVERY_CACHE_ENABLED = (
+    os.getenv("ENTITY_DISCOVERY_CACHE_ENABLED", "true").lower() == "true"
+)
+SOURCE_MONITORING_PHASE3_ENABLED = (
+    os.getenv("SOURCE_MONITORING_PHASE3_ENABLED", "false").lower() == "true"
+)
+ENTITY_PRIORITIZATION_MODEL = os.getenv(
+    "ENTITY_PRIORITIZATION_MODEL",
+    INFORMATION_NEED_MODEL,
+)
+ENTITY_PRIORITIZATION_TEMPERATURE = float(
+    os.getenv("ENTITY_PRIORITIZATION_TEMPERATURE", "0.1")
+)
+ENTITY_PRIORITIZATION_BATCH_SIZE = int(
+    os.getenv("ENTITY_PRIORITIZATION_BATCH_SIZE", "40")
+)
+ENTITY_PRIORITIZATION_MAX_EVIDENCE_PER_ENTITY = int(
+    os.getenv("ENTITY_PRIORITIZATION_MAX_EVIDENCE_PER_ENTITY", "4")
+)
+ENTITY_PRIORITIZATION_CACHE_ENABLED = (
+    os.getenv("ENTITY_PRIORITIZATION_CACHE_ENABLED", "true").lower() == "true"
+)
+ENTITY_PRIORITY_TIER_A_LIMIT = int(
+    os.getenv("ENTITY_PRIORITY_TIER_A_LIMIT", "18")
+)
+ENTITY_PRIORITY_TIER_B_LIMIT = int(
+    os.getenv("ENTITY_PRIORITY_TIER_B_LIMIT", "24")
+)
+ENTITY_PRIORITY_TIER_C_LIMIT = int(
+    os.getenv("ENTITY_PRIORITY_TIER_C_LIMIT", "18")
+)
+SOURCE_MONITORING_PHASE4_ENABLED = (
+    os.getenv("SOURCE_MONITORING_PHASE4_ENABLED", "false").lower() == "true"
+)
+SOURCE_DISCOVERY_MAX_RESULTS_PER_PLAN = int(
+    os.getenv("SOURCE_DISCOVERY_MAX_RESULTS_PER_PLAN", "5")
+)
+SOURCE_DISCOVERY_MAX_PLANS = int(
+    os.getenv("SOURCE_DISCOVERY_MAX_PLANS", "0")
+)
+SOURCE_DISCOVERY_EXECUTION_BATCH_SIZE = int(
+    os.getenv("SOURCE_DISCOVERY_EXECUTION_BATCH_SIZE", "10")
+)
+SOURCE_DISCOVERY_CLASSIFIER_MODEL = os.getenv(
+    "SOURCE_DISCOVERY_CLASSIFIER_MODEL",
+    ENTITY_PRIORITIZATION_MODEL,
+)
+SOURCE_DISCOVERY_CLASSIFIER_TEMPERATURE = float(
+    os.getenv("SOURCE_DISCOVERY_CLASSIFIER_TEMPERATURE", "0.0")
+)
+SOURCE_DISCOVERY_CLASSIFIER_BATCH_SIZE = int(
+    os.getenv("SOURCE_DISCOVERY_CLASSIFIER_BATCH_SIZE", "20")
+)
+SOURCE_DISCOVERY_CACHE_ENABLED = (
+    os.getenv("SOURCE_DISCOVERY_CACHE_ENABLED", "true").lower() == "true"
+)
+SOURCE_DISCOVERY_MAX_EVIDENCE_PER_CLASSIFIER_BATCH = int(
+    os.getenv("SOURCE_DISCOVERY_MAX_EVIDENCE_PER_CLASSIFIER_BATCH", "20")
+)
+SOURCE_FETCH_TIMEOUT_SECONDS = int(
+    os.getenv("SOURCE_FETCH_TIMEOUT_SECONDS", "15")
+)
+SOURCE_FETCH_MAX_BYTES = int(
+    os.getenv("SOURCE_FETCH_MAX_BYTES", "2000000")
+)
+SOURCE_FETCH_MAX_REDIRECTS = int(
+    os.getenv("SOURCE_FETCH_MAX_REDIRECTS", "5")
+)
+SOURCE_FETCH_USER_AGENT = os.getenv(
+    "SOURCE_FETCH_USER_AGENT",
+    "AgentWorkflow/0.1 SourceFetcher (bounded source evaluation)",
+)
+SOURCE_FETCH_BATCH_SIZE = int(
+    os.getenv("SOURCE_FETCH_BATCH_SIZE", "6")
+)
+SOURCE_INSPECTION_MAX_CANDIDATES = int(
+    os.getenv("SOURCE_INSPECTION_MAX_CANDIDATES", "20")
+)
+SOURCE_EVALUATION_MODEL = os.getenv(
+    "SOURCE_EVALUATION_MODEL",
+    ENTITY_PRIORITIZATION_MODEL,
+)
+SOURCE_EVALUATION_TEMPERATURE = float(
+    os.getenv("SOURCE_EVALUATION_TEMPERATURE", "0.0")
+)
+SOURCE_EVALUATION_MAX_OUTPUT_TOKENS = int(
+    os.getenv("SOURCE_EVALUATION_MAX_OUTPUT_TOKENS", "12000")
+)
+SOURCE_EVALUATION_MAX_CANDIDATES_PER_LLM_BATCH = int(
+    os.getenv("SOURCE_EVALUATION_MAX_CANDIDATES_PER_LLM_BATCH", "3")
+)
+SOURCE_EVALUATION_MAX_BUNDLE_CHARS_PER_LLM_BATCH = int(
+    os.getenv("SOURCE_EVALUATION_MAX_BUNDLE_CHARS_PER_LLM_BATCH", "50000")
+)
+SOURCE_EVALUATION_CACHE_ENABLED = (
+    os.getenv("SOURCE_EVALUATION_CACHE_ENABLED", "true").lower() == "true"
+)
+SOURCE_OBSERVATION_MODEL = os.getenv(
+    "SOURCE_OBSERVATION_MODEL",
+    SOURCE_EVALUATION_MODEL,
+)
+SOURCE_OBSERVATION_TEMPERATURE = float(
+    os.getenv("SOURCE_OBSERVATION_TEMPERATURE", "0.0")
+)
+SOURCE_OBSERVATION_MAX_OUTPUT_TOKENS = int(
+    os.getenv("SOURCE_OBSERVATION_MAX_OUTPUT_TOKENS", "8000")
+)
+SOURCE_OBSERVATION_MAX_ITEMS_PER_SOURCE = int(
+    os.getenv("SOURCE_OBSERVATION_MAX_ITEMS_PER_SOURCE", "5")
+)
+SOURCE_OBSERVATION_MAX_ITEMS_PER_LLM_BATCH = int(
+    os.getenv("SOURCE_OBSERVATION_MAX_ITEMS_PER_LLM_BATCH", "5")
+)
+SOURCE_OBSERVATION_MAX_SEMANTIC_CHARS_PER_BATCH = int(
+    os.getenv("SOURCE_OBSERVATION_MAX_SEMANTIC_CHARS_PER_BATCH", "45000")
+)
+SOURCE_OBSERVATION_CACHE_ENABLED = (
+    os.getenv("SOURCE_OBSERVATION_CACHE_ENABLED", "true").lower() == "true"
+)
+USER_PROFILE_EXTRACTION_MODEL = os.getenv(
+    "USER_PROFILE_EXTRACTION_MODEL",
+    AI_FILTER_MODEL,
+)
+AI_FILTER_DRY_RUN = os.getenv("AI_FILTER_DRY_RUN", "true").lower() == "true"

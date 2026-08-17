@@ -1,0 +1,132 @@
+{
+  "schema_version": "public_synthetic_preferences_v1",
+  "source": "synthetic_public_example",
+  "career_status": {
+    "career_stage": "new_graduate",
+    "has_full_time_experience": null
+  },
+  "career_objectives": [
+    "Find analytical early-career roles combining AI, business strategy, and market intelligence.",
+    "Compare venture capital, corporate strategy, AI strategy, technology consulting, and industry research paths."
+  ],
+  "role_preferences": {
+    "target_role_families": [
+      "venture capital analyst",
+      "AI strategy analyst",
+      "corporate strategy analyst",
+      "technology consulting analyst",
+      "industry research analyst"
+    ],
+    "exploration_policy_preference": {
+      "allow_bridge_paths": true,
+      "allow_stretch_paths": true,
+      "presentation_preference": "Show why each path fits the stated interests and constraints."
+    }
+  },
+  "work_content_preferences": {
+    "preferred_work": [
+      "market mapping",
+      "competitive intelligence",
+      "AI adoption analysis",
+      "strategy research",
+      "investment thesis support"
+    ],
+    "development_interest": "Build judgment around industries, companies, technologies, and strategic decisions."
+  },
+  "industry_preferences": [
+    "AI",
+    "technology",
+    "venture capital",
+    "professional services",
+    "market intelligence"
+  ],
+  "location_preferences": {
+    "preferred_cities": [
+      "Beijing",
+      "Shanghai",
+      "Shenzhen",
+      "Hangzhou",
+      "Nanjing",
+      "Hong Kong"
+    ],
+    "region_priority": [
+      "Asia-Pacific",
+      "EMEA"
+    ],
+    "overseas_work_willingness": true,
+    "short_term_overseas_assignment_willingness": false,
+    "remote_interview_willingness": true,
+    "relocation_willingness": "open_for_strong_fit",
+    "work_mode_preference": "hybrid_or_onsite",
+    "location_constraint_status": "flexible"
+  },
+  "organization_preferences": {
+    "preferred_company_types": [
+      "venture funds",
+      "strategy teams",
+      "AI product organizations",
+      "technology consultancies",
+      "research platforms"
+    ],
+    "autonomy_preference": "structured autonomy",
+    "early_career_structure_preference": "mentorship plus real analytical ownership",
+    "team_structure_preference": "small analytical teams with cross-functional exposure"
+  },
+  "seniority_preferences": {
+    "preferred_levels": [
+      "management trainee",
+      "analyst",
+      "research assistant"
+    ],
+    "accept_internship_to_full_time": true
+  },
+  "experience_requirement_tolerance": {
+    "apply_when_skill_fit_but_years_slightly_high": true,
+    "avoid_roles_requiring_senior_leadership_track_record": true,
+    "three_to_five_years": {
+      "default_action": "keep_only_if_highly_matched"
+    }
+  },
+  "compensation_preferences": {
+    "public_example": true,
+    "notes": "No real compensation history or requirement is represented."
+  },
+  "work_environment_preferences": [
+    "analytical",
+    "strategic",
+    "learning-oriented",
+    "high-signal information environment"
+  ],
+  "career_value_scores": {
+    "learning_density": 5,
+    "strategic_scope": 5,
+    "company_brand": 3,
+    "location": 3,
+    "stability": 3
+  },
+  "career_tradeoffs": {
+    "stable_company_vs_high_risk_startup": "evaluate_case_by_case",
+    "specialization_vs_breadth": "prefer_breadth_early"
+  },
+  "recommendation_explanation_preferences": {
+    "show_long_term_goal_connection": true,
+    "show_tradeoffs": true
+  },
+  "work_style_preferences": {
+    "collaboration_preference": "collaborative analytical teams",
+    "research_preference": "high",
+    "implementation_preference": "moderate",
+    "problem_variety_preference": "high",
+    "domain_variety_preference": "high",
+    "leadership_preference": "individual contributor with growth path"
+  },
+  "soft_preferences": [
+    "Prefer work that builds strategic judgment.",
+    "Prefer roles with credible mentorship and visible decision impact."
+  ],
+  "hard_constraints": [
+    "No unpaid roles.",
+    "No real identity, biography, resume, education, employment, contact, demographic, or compensation data is included in this public example."
+  ],
+  "needs_confirmation": []
+}
